@@ -1,0 +1,410 @@
+<!DOCTYPE html>
+<html lang="fr" class="h-full">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>2 Vérités, 1 Mytho ! 🤥✨</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <!-- Canvas Confetti -->
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;600;700&family=Plus+Jakarta+Sans:wght@700;800;900&display=swap" rel="stylesheet">
+
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        display: ['Fredoka', 'cursive'],
+                        sans: ['Plus Jakarta Sans', 'sans-serif'],
+                    },
+                    colors: {
+                        popYellow: '#FFDE59',
+                        popPink: '#FF66C4',
+                        popPurple: '#8C52FF',
+                        popCyan: '#00F0FF',
+                        popGreen: '#00E676',
+                        popRed: '#FF3366',
+                        darkPop: '#1A0B2E'
+                    },
+                    boxShadow: {
+                        'pop': '6px 6px 0px 0px #000000',
+                        'pop-lg': '10px 10px 0px 0px #000000',
+                        'pop-hover': '3px 3px 0px 0px #000000',
+                    },
+                    animation: {
+                        'shake': 'shake 0.5s cubic-bezier(.36,.07,.19,.97) both',
+                        'bounce-slow': 'bounce 2s infinite',
+                        'wiggle': 'wiggle 0.3s ease-in-out infinite',
+                    },
+                    keyframes: {
+                        shake: {
+                            '10%, 90%': { transform: 'translate3d(-2px, 0, 0) rotate(-1deg)' },
+                            '20%, 80%': { transform: 'translate3d(4px, 0, 0) rotate(2deg)' },
+                            '30%, 50%, 70%': { transform: 'translate3d(-6px, 0, 0) rotate(-3deg)' },
+                            '40%, 60%': { transform: 'translate3d(6px, 0, 0) rotate(3deg)' },
+                        },
+                        wiggle: {
+                            '0%, 100%': { transform: 'rotate(-3deg)' },
+                            '50%': { transform: 'rotate(3deg)' },
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        body {
+            background-color: #1A0B2E;
+            background-image: 
+                radial-gradient(#8C52FF 1.5px, transparent 1.5px),
+                radial-gradient(#FF66C4 1.5px, #1A0B2E 1.5px);
+            background-size: 60px 60px;
+            background-position: 0 0, 30px 30px;
+            font-family: 'Plus Jakarta Sans', sans-serif;
+        }
+
+        .pop-card {
+            transition: all 0.2s cubic-bezier(0.34, 1.56, 0.64, 1);
+        }
+
+        .pop-card:hover {
+            transform: translate(-4px, -4px);
+        }
+
+        .badge-pop {
+            box-shadow: 2px 2px 0px 0px #000000;
+        }
+    </style>
+</head>
+<body class="min-h-screen text-slate-900 flex flex-col justify-between p-4 sm:p-6 overflow-x-hidden">
+
+    <!-- Navbar Minimalist & Fun -->
+    <header class="max-w-4xl mx-auto w-full flex justify-between items-center bg-popYellow border-4 border-black p-3 rounded-2xl shadow-pop mb-6">
+        <div class="flex items-center gap-2">
+            <span class="text-3xl animate-bounce-slow">🤥</span>
+            <h1 class="font-display font-bold text-xl sm:text-2xl text-black tracking-wide uppercase">
+                LE MYTHO-TEST !
+            </h1>
+        </div>
+        <button onclick="toggleAdminModal()" class="bg-popPink hover:bg-pink-400 text-black border-2 border-black font-display text-xs sm:text-sm font-bold px-3 py-1.5 rounded-xl shadow-pop-hover flex items-center gap-1.5 transition">
+            <i data-lucide="settings" class="w-4 h-4"></i>
+            <span class="hidden sm:inline">Éditer</span>
+        </button>
+    </header>
+
+    <!-- Main Content Container -->
+    <main class="max-w-4xl mx-auto w-full flex-grow flex flex-col justify-center items-center">
+
+        <!-- WELCOME SCREEN -->
+        <div id="screen-welcome" class="text-center w-full max-w-2xl bg-white border-4 border-black p-6 sm:p-10 rounded-3xl shadow-pop-lg relative overflow-hidden">
+            <div class="absolute -top-6 -right-6 bg-popPink text-black font-display text-xs font-bold px-8 py-4 border-4 border-black rotate-12 shadow-pop">
+                EDITION SPÉCIALE 🔥
+            </div>
+
+            <div class="inline-block bg-popPurple text-white px-4 py-1.5 rounded-full border-2 border-black font-display font-bold text-sm mb-4 -rotate-2">
+                🎮 JEU INTERACTIF
+            </div>
+
+            <h2 class="font-display text-4xl sm:text-6xl font-black text-black leading-none mb-4 uppercase">
+                2 VÉRITÉS <br>
+                <span class="text-popRed underline decoration-wavy decoration-popYellow">1 MYTHO !</span>
+            </h2>
+
+            <p class="text-base sm:text-lg font-bold text-slate-700 mb-8 max-w-lg mx-auto">
+                Parmi ces 3 histoires folles, <span class="bg-popYellow px-1 border border-black">DEUX sont vraies</span> et <span class="bg-popRed text-white px-1 border border-black">UNE est totalement inventée</span>.
+                <br><br>Penses-tu me connaître assez pour démasquer mon mensonge ? 🕵️‍♂️✨
+            </p>
+
+            <button onclick="startGame()" class="w-full sm:w-auto px-8 py-5 bg-popGreen hover:bg-emerald-300 text-black font-display font-black text-2xl rounded-2xl border-4 border-black shadow-pop hover:shadow-pop-hover transition transform active:translate-x-1 active:translate-y-1 flex items-center justify-center gap-3 mx-auto">
+                <span>LANCER L'ENQUÊTE</span>
+                <span class="text-3xl">🔍</span>
+            </button>
+        </div>
+
+        <!-- GAMEPLAY SCREEN -->
+        <div id="screen-game" class="hidden w-full flex flex-col items-center">
+            
+            <div class="bg-popYellow border-4 border-black px-6 py-2 rounded-2xl shadow-pop mb-6 -rotate-1 text-center">
+                <p class="font-display font-bold text-lg text-black">
+                    👇 CLIQUE SUR L'ANECDOTE QUI EST <span class="text-popRed underline">FAUSSE</span> ! 👇
+                </p>
+            </div>
+
+            <!-- Cards Grid -->
+            <div id="cards-container" class="grid grid-cols-1 md:grid-cols-3 gap-6 w-full mb-8">
+                <!-- Cards injectées dynamiquement -->
+            </div>
+
+            <!-- RESULT MODAL / OVERLAY -->
+            <div id="result-overlay" class="hidden fixed inset-0 bg-black/70 backdrop-blur-sm z-50 flex items-center justify-center p-4">
+                <div id="result-card" class="bg-white border-4 border-black p-6 sm:p-8 rounded-3xl shadow-pop-lg max-w-lg w-full text-center relative animate-bounce-short">
+                    
+                    <div id="result-emoji" class="text-6xl sm:text-7xl mb-2"></div>
+                    <h3 id="result-title" class="font-display text-3xl sm:text-4xl font-black mb-3 uppercase"></h3>
+                    
+                    <div id="result-box" class="p-4 rounded-2xl border-3 border-black font-bold text-sm sm:text-base mb-6 leading-relaxed"></div>
+
+                    <div class="flex flex-col sm:flex-row gap-3">
+                        <button id="btn-retry" onclick="resetGame()" class="hidden flex-1 py-3 px-4 bg-popYellow hover:bg-yellow-300 text-black font-display font-bold rounded-xl border-3 border-black shadow-pop-hover">
+                            🔄 Reessayer
+                        </button>
+                        <button id="btn-next" onclick="resetGame()" class="hidden flex-1 py-3 px-4 bg-popGreen hover:bg-emerald-300 text-black font-display font-bold rounded-xl border-3 border-black shadow-pop-hover">
+                            🎉 Rejouer !
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+    </main>
+
+    <!-- Footer -->
+    <footer class="mt-8 text-center">
+        <div class="inline-block bg-black/60 backdrop-blur-sm text-white px-4 py-2 rounded-full border border-white/20 font-display text-xs">
+            Fait avec ❤️ & de la pure mauvaise foi
+        </div>
+    </footer>
+
+    <!-- ADMIN / EDIT MODAL -->
+    <div id="admin-modal" class="hidden fixed inset-0 bg-black/80 backdrop-blur-sm z-50 flex items-center justify-center p-4">
+        <div class="bg-white border-4 border-black p-6 rounded-3xl shadow-pop-lg max-w-xl w-full max-h-[90vh] overflow-y-auto">
+            <div class="flex justify-between items-center mb-4">
+                <h3 class="font-display text-2xl font-black text-black">⚙️ Personnaliser tes anecdotes</h3>
+                <button onclick="toggleAdminModal()" class="text-black hover:text-popRed font-black text-xl">✕</button>
+            </div>
+            
+            <p class="text-xs text-slate-600 font-bold mb-4">
+                Entre tes 3 anecdotes et coche celle qui est le **MENSONGE** !
+            </p>
+
+            <form id="edit-form" onsubmit="saveCustomAnecdotes(event)" class="space-y-4">
+                <div id="form-inputs"></div>
+
+                <div class="pt-4 border-t-2 border-black flex justify-between gap-2">
+                    <button type="button" onclick="restoreDefaults()" class="px-3 py-2 bg-slate-200 hover:bg-slate-300 text-black font-display text-xs font-bold rounded-xl border-2 border-black">
+                        Réinitialiser
+                    </button>
+                    <button type="submit" class="px-5 py-2 bg-popGreen hover:bg-emerald-300 text-black font-display text-sm font-bold rounded-xl border-2 border-black shadow-pop-hover">
+                        Enregistrer les modifications
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- JAVASCRIPT GAME LOGIC -->
+    <script>
+        // Anecdotes par défaut (Demandées exactement par l'utilisateur)
+        const DEFAULT_DATA = [
+            {
+                id: 1,
+                badge: "🚑 PURE FOLIE",
+                color: "bg-popCyan",
+                text: "J'ai déjà fait accoucher une femme à 3h du matin en pleine rue à Marseille en rentrant de soirée bourrée.",
+                isLie: false,
+                reveal: "ET C'EST 100% VRAI !! 👶 C'était le chaos total, je n'avais rien demandé mais j'ai assuré le travail ! Une légende est née ce soir-là !"
+            },
+            {
+                id: 2,
+                badge: "💔 DRAMA QUEEN",
+                color: "bg-popPink",
+                text: "Mon ex m'a trompée avec mon ancienne meilleure amie et je l'ai découvert en fouillant dans son téléphone.",
+                isLie: true, // C'EST LE MENSONGE !
+                reveal: "BINGO !! C'EST LE FAUX MYTHO ! 🎉 Mon ex était super nul, mais heureusement mon ancienne pote et mon téléphone sont innocents 😂 !"
+            },
+            {
+                id: 3,
+                badge: "🎰 CASINO ROYALE",
+                color: "bg-popYellow",
+                text: "Mon père est millionnaire, il a gagné une grosse somme d'argent au casino.",
+                isLie: false,
+                reveal: "C'EST TOTALEMENT VRAI !! 🤑 Le jackpot ultime sur un coup de chance monumental ! Je demande toujours de l'argent de poche..."
+            }
+        ];
+
+        let currentAnecdotes = [];
+
+        window.addEventListener('DOMContentLoaded', () => {
+            loadAnecdotes();
+            lucide.createIcons();
+        });
+
+        function loadAnecdotes() {
+            const saved = localStorage.getItem('fun_anecdotes_v2');
+            if (saved) {
+                try {
+                    currentAnecdotes = JSON.parse(saved);
+                } catch(e) {
+                    currentAnecdotes = JSON.parse(JSON.stringify(DEFAULT_DATA));
+                }
+            } else {
+                currentAnecdotes = JSON.parse(JSON.stringify(DEFAULT_DATA));
+            }
+        }
+
+        function startGame() {
+            document.getElementById('screen-welcome').classList.add('hidden');
+            document.getElementById('screen-game').classList.remove('hidden');
+            renderCards();
+        }
+
+        function renderCards() {
+            const container = document.getElementById('cards-container');
+            container.innerHTML = '';
+
+            currentAnecdotes.forEach((item, index) => {
+                const card = document.createElement('div');
+                card.className = `pop-card ${item.color} border-4 border-black p-6 rounded-3xl shadow-pop flex flex-col justify-between cursor-pointer relative overflow-hidden group min-h-[260px]`;
+                card.onclick = () => selectCard(index);
+
+                card.innerHTML = `
+                    <div>
+                        <div class="flex justify-between items-center mb-4">
+                            <span class="badge-pop bg-white text-black font-display text-xs font-black px-3 py-1 rounded-full border-2 border-black">
+                                ${item.badge || `ANECDOTE #${index+1}`}
+                            </span>
+                            <span class="text-2xl group-hover:scale-125 transition transform">🤔</span>
+                        </div>
+                        <p class="font-bold text-black text-base sm:text-lg leading-snug">
+                            "${item.text}"
+                        </p>
+                    </div>
+
+                    <div class="mt-6 pt-4 border-t-2 border-black/20 flex items-center justify-between">
+                        <span class="font-display font-black text-xs uppercase text-black/80">C'est le mytho ?</span>
+                        <button class="bg-black text-white font-display text-xs font-bold px-3 py-1.5 rounded-xl border border-black shadow-pop-hover group-hover:bg-popRed transition">
+                            ACCUSER 👈
+                        </button>
+                    </div>
+                `;
+                container.appendChild(card);
+            });
+        }
+
+        function selectCard(selectedIndex) {
+            const chosen = currentAnecdotes[selectedIndex];
+            const overlay = document.getElementById('result-overlay');
+            const cardBox = document.getElementById('result-card');
+            const emoji = document.getElementById('result-emoji');
+            const title = document.getElementById('result-title');
+            const box = document.getElementById('result-box');
+            const btnRetry = document.getElementById('btn-retry');
+            const btnNext = document.getElementById('btn-next');
+
+            overlay.classList.remove('hidden');
+
+            if (chosen.isLie) {
+                // VICTOIRE ! Il a trouvé la fausse !
+                triggerConfetti();
+                emoji.innerText = "🎉 BINGO ! 🎉";
+                title.innerText = "TU AS TRUVÉ !";
+                title.className = "font-display text-3xl sm:text-4xl font-black mb-3 uppercase text-popGreen";
+                box.className = "p-4 rounded-2xl border-3 border-black font-bold text-sm sm:text-base mb-6 leading-relaxed bg-emerald-100 text-emerald-900 border-emerald-500";
+                box.innerText = chosen.reveal;
+
+                btnRetry.classList.add('hidden');
+                btnNext.classList.remove('hidden');
+                btnNext.innerText = "Trop fort ! Rejouer 🔥";
+            } else {
+                // ERREUR ! Il a cliqué sur une vraie !
+                cardBox.classList.add('animate-shake');
+                setTimeout(() => cardBox.classList.remove('animate-shake'), 600);
+
+                emoji.innerText = "😱 RATÉ !! ❌";
+                title.innerText = "NON C'EST VRAI !";
+                title.className = "font-display text-3xl sm:text-4xl font-black mb-3 uppercase text-popRed";
+                box.className = "p-4 rounded-2xl border-3 border-black font-bold text-sm sm:text-base mb-6 leading-relaxed bg-red-100 text-red-900 border-red-500";
+                box.innerText = chosen.reveal;
+
+                btnRetry.classList.remove('hidden');
+                btnNext.classList.add('hidden');
+            }
+        }
+
+        function resetGame() {
+            document.getElementById('result-overlay').classList.add('hidden');
+            document.getElementById('screen-game').classList.add('hidden');
+            document.getElementById('screen-welcome').classList.remove('hidden');
+        }
+
+        function triggerConfetti() {
+            const count = 200;
+            const defaults = { origin: { y: 0.7 } };
+
+            function fire(particleRatio, opts) {
+                confetti(Object.assign({}, defaults, opts, {
+                    particleCount: Math.floor(count * particleRatio)
+                }));
+            }
+
+            fire(0.25, { spread: 26, startVelocity: 55 });
+            fire(0.2, { spread: 60 });
+            fire(0.35, { spread: 100, decay: 0.91, scalar: 0.8 });
+            fire(0.1, { spread: 120, startVelocity: 25, decay: 0.92, scalar: 1.2 });
+            fire(0.1, { spread: 120, startVelocity: 45 });
+        }
+
+        // --- Admin Form Logic ---
+        function toggleAdminModal() {
+            const modal = document.getElementById('admin-modal');
+            if (modal.classList.contains('hidden')) {
+                populateAdminForm();
+                modal.classList.remove('hidden');
+            } else {
+                modal.classList.add('hidden');
+            }
+        }
+
+        function populateAdminForm() {
+            const container = document.getElementById('form-inputs');
+            container.innerHTML = '';
+
+            currentAnecdotes.forEach((item, index) => {
+                container.innerHTML += `
+                    <div class="p-4 bg-slate-100 border-2 border-black rounded-2xl space-y-2">
+                        <div class="flex items-center justify-between">
+                            <span class="font-display font-bold text-xs">Anecdote #${index+1}</span>
+                            <label class="flex items-center gap-1.5 cursor-pointer text-xs font-bold bg-white px-2 py-1 rounded-lg border border-black">
+                                <input type="radio" name="lie_radio" value="${index}" ${item.isLie ? 'checked' : ''} class="accent-popRed">
+                                <span class="${item.isLie ? 'text-popRed font-black' : ''}">C'est le MYTHO</span>
+                            </label>
+                        </div>
+                        <textarea id="text_${index}" rows="2" class="w-full p-2 border-2 border-black rounded-xl text-xs font-bold focus:outline-none focus:border-popPurple">${item.text}</textarea>
+                    </div>
+                `;
+            });
+        }
+
+        function saveCustomAnecdotes(e) {
+            e.preventDefault();
+            const selectedLie = parseInt(document.querySelector('input[name="lie_radio"]:checked').value);
+
+            currentAnecdotes.forEach((item, index) => {
+                item.text = document.getElementById(`text_${index}`).value;
+                item.isLie = (index === selectedLie);
+                item.reveal = item.isLie 
+                    ? "BINGO ! C'est bien le mensonge inventé de toutes pièces ! 😂" 
+                    : "ET NON ! Cette histoire folle est 100% VRAIE ! 🔥";
+            });
+
+            localStorage.setItem('fun_anecdotes_v2', JSON.stringify(currentAnecdotes));
+            toggleAdminModal();
+            resetGame();
+        }
+
+        function restoreDefaults() {
+            localStorage.removeItem('fun_anecdotes_v2');
+            loadAnecdotes();
+            populateAdminForm();
+        }
+    </script>
+</body>
+</html>
